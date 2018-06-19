@@ -39,6 +39,74 @@ Server IP address: 13.232.54.254
       change the port number from 22 to 2200
 #### Now get login by using this command:
       ssh -i .ssh/id_rsa -p 2200 grader@ipaddress
+#### To make changes for Root:
+      sudo nano /etc/ssh/sshd_config
+#### To get security for firewall:
+      sudo ufw allow 2200/tcp
+      sudo ufw allow 80/tcp
+      sudo ufw allow 123/udp
+      sudo ufw enable
+#### To check status:
+      sudo ufw status
+#### To get time and day of our configuration:
+      sudo dpkg-reconfigure tzdata
+#### To get install for apache2:
+      sudo apt-get install apache2
+#### To get mod_wsgi
+      sudo apt-get install python-setuptools libapache2-mod-wsgi
+#### To get enable:
+      sudo a2enmod wsgi
+#### Create a new directory named FlaskAPP and go into that directory:
+      sudo mkdir FlaskApp
+      cd FlaskApp
+#### To get git clone we need to install git:
+      sudo apt-get install git
+#### Now get address of your itemcatalog project from github:
+      sudo git clone https://github.com/name/item_catalog.git
+#### To change the file name of our main project file:
+      sudo mv project.py __init__.py
+#### Now open that file and add json file:
+      sudo nano __init__.py
+      PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+      json_url = os.path.join(PROJECT_ROOT, 'client_secrets.json')
+#### Then after save and exit:
+      ctrl+o
+      ctrl+x
+#### create wsgi file:
+      sudo nano mv project.py FlaskApp.wsgi
+      #!/usr/bin/python
+      import sys
+      import logging
+      logging.basicConfig(stream=sys.stderr)
+      sys.path.insert(0,"/var/www/FlaskApp/")
+      from FlaskApp import app as application
+      application.secret_key = 'Add your secret key'
+#### create a virtual host file:
+      sudo nano /etc/apache2/sites-available/FlaskApp.conf
+      <VirtualHost *:80>
+ 	ServerName mywebsite.com
+ 	ServerAdmin admin@mywebsite.com
+ 	WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
+ 	<Directory /var/www/FlaskApp/FlaskApp/>
+ 		Order allow,deny
+ 		Allow from all
+ 	</Directory>
+ 	Alias /static /var/www/FlaskApp/FlaskApp/static
+ 	<Directory /var/www/FlaskApp/FlaskApp/static/>
+ 		Order allow,deny
+ 		Allow from all
+ 	</Directory>
+ 	ErrorLog ${APACHE_LOG_DIR}/error.log
+ 	LogLevel warn
+ 	CustomLog ${APACHE_LOG_DIR}/access.log combined
+      </VirtualHost>
+      
+
+
+
+
+
+
 
 
      
