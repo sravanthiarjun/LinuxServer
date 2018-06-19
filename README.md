@@ -114,8 +114,33 @@ Server IP address: 13.232.54.254
 ##### To get enter into database shell
       psql
 ##### create user 
-      CREATE USER catalog WITH PASSWORD 'password';
-##### 
+      CREATE USER item_catalog WITH PASSWORD 'password';
+##### To get Alter:
+      ALTER USER item_catalog CREATEDB;
+##### To get database name with user:
+      CREATE DATABASE item_catalog WITH user item_catalog;
+##### To get connect to database:
+      \c item_catalog
+##### To get revoke from permissions:
+      REVOKE ALL ON SCHEMA public FROM public;
+##### To grant such permisions:
+      GRANT ALL ON SCHEMA public TO catalog;
+##### To get exist and logout
+      \q
+      exit
+##### Now change the database connection in both database_setup.py and __init__.py as :
+      engine = create_engine('postgresql://item_catalog:password@localhost/item_catalog')
+##### Now our appilication is ready.
+#### Setting google oauth2client details:
+##### Login to your developer console and select the project and edit OAuth details as following:
+###### Javascript origin http://ip.xip.io
+###### redirect URI
+      http://ip.xip.io\login
+      http://ip.xip.io\gconnect
+      http://ip.xip.io\callback
+##### Finally we must restart our server:
+      sudo service apache2 restart
+
 
 
 
