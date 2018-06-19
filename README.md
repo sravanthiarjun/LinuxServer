@@ -17,6 +17,12 @@ Server IP address: 13.232.54.254
       sudo nano /etc/sudoers
 #### To grant permissions:
       grader  ALL=(ALL:ALL) ALL
-
+#### To create ssh keypair grader:
+      ssh-keygen
+#### This generate the public key and private key to the .ssh folder
+#### To get change to the new user:
+     su -grader
+     
+     
 
 
