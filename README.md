@@ -100,9 +100,22 @@ Server IP address: 13.232.54.254
  	LogLevel warn
  	CustomLog ${APACHE_LOG_DIR}/access.log combined
       </VirtualHost>
-      
-
-
+ #### To get install certain softwares we use:
+      pip install sqlalchemy
+      pip install flask
+      pip install oauth2client
+      pip install pyscopg2
+      pip install requests
+#### To get connect to database:
+##### Install postgresql:
+      sudo apt-get install postgresql
+##### To get login into postgres:
+      sudo su - postgres
+##### To get enter into database shell
+      psql
+##### create user 
+      CREATE USER catalog WITH PASSWORD 'password';
+##### 
 
 
 
