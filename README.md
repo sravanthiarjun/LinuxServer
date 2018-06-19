@@ -24,8 +24,23 @@ Server IP address: 13.232.54.254
      su -grader
 #### create a new folder .ssh and new authorized_file:
       mkdir .ssh
-      sudo nano .ssh/authorized_keys
 #### copy the public keys with .pub extension and save the authorized file
+      sudo nano .ssh/authorized_keys
+#### To get permissions for to user:
+      chmod 700 .ssh
+#### To prevent other user to write on file:
+      chmod 644 .ssh/authorized_keys
+#### Then we can restart our server by using coomand:
+      service ssh restart
+#### Now we get log in to the grader with our private key generated:
+      ssh -i .ssh/id_rsa grader@ipaddress 
+#### Now changing the port number of ssh:
+      sudo nano /etc/ssh/sshd_config
+      change the port number from 22 to 2200
+#### Now get login by using this command:
+      ssh -i .ssh/id_rsa -p 2200 grader@ipaddress
+
+
 
      
 
