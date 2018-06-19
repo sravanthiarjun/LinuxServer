@@ -133,7 +133,6 @@ Server IP address: 13.232.54.254
 ##### Now our appilication is ready.
 #### Setting google oauth2client details:
 ##### Login to your developer console and select the project and edit OAuth details as following:
-###### Javascript origin http://ip.xip.io
 ###### redirect URI
       http://ip.xip.io\login
       http://ip.xip.io\gconnect
