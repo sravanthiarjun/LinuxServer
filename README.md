@@ -41,7 +41,6 @@ Server IP address: 13.232.54.254
       ssh -i .ssh/id_rsa -p 2200 grader@ipaddress
 
 
-
      
 
 
