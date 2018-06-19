@@ -5,6 +5,7 @@ About Server
 ### Details About The Server:
 Server IP address: 13.232.54.254
 ##### Url site : 
+##### open awazon lightsail.com and create an instance that we want for project and static ip address for it.
 ### To connect to grader:
 #### Download the file that is having our private key when we created our instance in the lightsail amazon.com
 #### Save the private key provided in your machine and run the command as follows:
