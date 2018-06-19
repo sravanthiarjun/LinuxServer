@@ -22,7 +22,11 @@ Server IP address: 13.232.54.254
 #### This generate the public key and private key to the .ssh folder
 #### To get change to the new user:
      su -grader
-     
+#### create a new folder .ssh and new authorized_file:
+      mkdir .ssh
+      sudo nano .ssh/authorized_keys
+#### copy the public keys with .pub extension and save the authorized file
+
      
 
 
