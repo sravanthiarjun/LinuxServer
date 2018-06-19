@@ -138,6 +138,7 @@ Server IP address: 13.232.54.254
       http://ip.xip.io\login
       http://ip.xip.io\gconnect
       http://ip.xip.io\callback
+      
 ##### Finally we must restart our server:
       sudo service apache2 restart
 
