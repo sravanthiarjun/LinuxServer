@@ -146,11 +146,11 @@ Server IP address:
 ##### To get enter into database shell
       psql
 ##### create user 
-      CREATE USER item_catalog WITH PASSWORD 'password';
+      CREATE USER catalog WITH PASSWORD 'password';
 ##### To get Alter:
-      ALTER USER item_catalog CREATEDB;
+      ALTER USER catalog CREATEDB;
 ##### To get database name with user:
-      CREATE DATABASE item_catalog WITH user item_catalog;
+      CREATE DATABASE catalog WITH user catalog;
 ##### To get connect to database:
       \c item_catalog
 ##### To get revoke from permissions:
@@ -161,7 +161,7 @@ Server IP address:
       \q
       exit
 ##### Now change the database connection in both database_setup.py and __init__.py as :
-      engine = create_engine('postgresql://item_catalog:password@localhost/item_catalog')
+      engine = create_engine('postgresql://catalog:password@localhost/catalog')
 ##### Now our appilication is ready.
 #### Setting google oauth2client details:
 ##### Login to your developer console and select the project and edit OAuth details as following:
