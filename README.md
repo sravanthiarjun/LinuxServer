@@ -12,6 +12,7 @@ Server IP address:
       ssh -i path/to/privatekey -p 2200 grader@ipaddress
 #### To get Update all files:
       sudo apt-get update
+      sudo apt-get upgrade
 #### To create grader user:
       sudo adduser grader
 #### To get another new user:
@@ -22,7 +23,7 @@ Server IP address:
       ssh-keygen
 #### This generate the public key and private key to the .ssh folder
 #### To get change to the new user:
-     su -grader
+     su - grader
 #### create a new folder .ssh and new authorized_file:
       mkdir .ssh
 #### copy the public keys with .pub extension and save the authorized file
