@@ -1,7 +1,12 @@
 # LinuxServer
 About Server
 ## This is the sixth project of Udacity Full Stack Nanodegree course.
+#### Packages I have used:
+           I have used python,apache2 software,putty,Flask etc;
 ### This project is about Configuring the linux servers.
+     references i have used:
+       http://digitalocean.com
+       http://github.com
 ### Details About The Server:
 Server IP address: 
 ##### UrlSite : http://13.232.90.166.xip.io
@@ -73,6 +78,7 @@ Server IP address:
       ssh -i .ssh/id_rsa -p 2200 grader@ipaddress
 #### To make changes for Root:
       sudo nano /etc/ssh/sshd_config
+      make change PermitRootLogin no
 #### To get security for firewall:
       sudo ufw allow 2200/tcp
       sudo ufw allow 80/tcp
