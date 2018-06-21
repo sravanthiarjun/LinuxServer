@@ -88,6 +88,9 @@ Server IP address:
       sudo ufw status
 #### To get time and day of our configuration:
       sudo dpkg-reconfigure tzdata
+#### update to recent versions:
+      sudo apt-get update
+      sudo apt-get upgrade 
 #### To get install for apache2:
       sudo apt-get install apache2
 #### To get mod_wsgi
