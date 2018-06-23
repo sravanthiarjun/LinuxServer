@@ -193,7 +193,8 @@ AWS account with lightsail service activated.
            cd /var/www/FlaskApp
  
            sudo rm -r FlaskApp
-           
+#### Step-3:
+
 ##### To get git clone we need to install git:
 
       sudo apt-get install git
@@ -300,7 +301,7 @@ Open google api console and changethe uri's
  
       sudo service apache2 restart
       
-For error checking :
+ For error checking :
 
       sudo nano /var/log/apache2/error.log
       
