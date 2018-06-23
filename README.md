@@ -1,15 +1,11 @@
 # LinuxServer
-About Server
+
 ## This is the sixth project of Udacity Full Stack Nanodegree course.
-#### Packages I have used:
-           I have used python,apache2 software,putty,Flask etc;
-### This project is about Configuring the linux servers.
-     references i have used:
-       http://digitalocean.com
-       http://github.com
-### Details About The Server:
-Server IP address: 
-##### UrlSite : http://13.232.90.166.xip.io
+
+#### Details About The Server:
+
+Server IP address:13.127.121.235.xip.io 
+UrlSite : http://13.127.121.235.xip.io
 
 #### Grader Key:
       -----BEGIN RSA PRIVATE KEY-----
@@ -43,25 +39,52 @@ Server IP address:
 #### Grader password:
 
       unix
-      
-#### To get Update all files:
+#### Step:1
+
+1. Create an amazon account https://aws.amazon.com/
+
+2. Create an instance in lightsail.aws.amazon.com
+
+3. Download putty.exe and puttygen.exe in putty.org
+
+--Open Putty. give staticIP of instance as hostname.
+
+select file downloaded from shh-keys eg: LightsailDefaultPrivateKey-ap-south-1.pem click ok.then save private, yes,
+give some name.. save on desktop.then close it. now you will see a .ppk file on desktop.
+
+From left tree, click on SSH. after, Auth. You will see browser button. click on browser, and select .ppk file
+and click on open. press No. username ubuntu
+
+4. Create static ip in lightsail and download it.
+
+5. Open putty enter your ip and add private key address.
+
+6. From left tree, click on SSH. after, Auth. You will see browser button.
+
+7.Click on browser, and select .ppk file and click on open.
+
+8. Press No.
+
+now we are connected to ubuntu user.
+
+##### To get Update all files:
 
       sudo apt-get update
       sudo apt-get upgrade
       
-#### To create grader user:
+##### To create grader user:
 
       sudo adduser grader
       
-#### To get another new user:
+##### To get another new user:
 
       sudo nano /etc/sudoers
       
-#### To grant permissions:
+##### To grant permissions:
 
       grader  ALL=(ALL:ALL) ALL
       
-#### To create ssh keypair grader:
+##### To create ssh keypair grader:
 
    Open new terminal and generate a key.
      
@@ -71,57 +94,54 @@ Server IP address:
    
      su - grader
      
-#### create a new folder .ssh and new authorized_file:
+##### create a new folder .ssh and new authorized_file:
 
       mkdir .ssh
       
-#### copy the public keys with .pub extension and save the authorized file
+##### Copy the public keys with .pub extension and save the authorized file
 
       sudo nano .ssh/authorized_keys
       
-#### To get permissions for to user:
+##### Permissions to user:
 
       chmod 700 .ssh
       
       chmod 644 .ssh/authorized_keys
       
-#### Then we can restart our server by using coomand:
+##### Then we can restart our server by using coomand:
 
       service ssh restart
       
-#### Now we get log in to the grader with our private key generated:
+##### Now we get log in to the grader with our private key generated:
 
       ssh -i .ssh/id_rsa grader@ipaddress 
       
-#### Now changing the port number of ssh:
+##### Now changing the port number of ssh:
 
       sudo nano /etc/ssh/sshd_config
       
    Then change the port number from 22 to 2200
    
-#### Now get login by using this command:
+##### Now get login by using this command:
 
       ssh -i .ssh/id_rsa -p 2200 grader@ipaddress
       
-#### To make changes for Root:
+##### To make changes for Root:
 
       sudo nano /etc/ssh/sshd_config
       
    Note:Make change PermitRootLogin no
    
-#### To get security for firewall:
+##### To get security for firewall:
 
       sudo ufw allow 2200/tcp
       sudo ufw allow 80/tcp
       sudo ufw allow 123/udp
       sudo ufw enable
       
-#### To check status:
+##### Check status:
 
       sudo ufw status
-      
-#### To get time and day of our configuration:
-
       sudo dpkg-reconfigure tzdata
       
 #### Step-2
@@ -174,19 +194,19 @@ AWS account with lightsail service activated.
  
            sudo rm -r FlaskApp
            
-#### To get git clone we need to install git:
+##### To get git clone we need to install git:
 
       sudo apt-get install git
       
-#### Now get address of your itemcatalog project from github:
+##### Now get address of your itemcatalog project from github:
 
       sudo git clone https://github.com/name/item_catalog.git
       
-#### To change the file name of our main project file:
+##### To change the file name of our main project file:
 
       sudo mv project.py __init__.py
       
-#### Now open that file and add json file:
+##### Now open that file and add json file:
 
       sudo nano __init__.py
    Add the following coding after importing files.
@@ -202,9 +222,6 @@ AWS account with lightsail service activated.
       ctrl+x
       y
       enter
-      
-#### create wsgi file:
-
       sudo nano mv project.py FlaskApp.wsgi
       
   And write the below code in it.
@@ -241,12 +258,20 @@ AWS account with lightsail service activated.
  	CustomLog ${APACHE_LOG_DIR}/access.log combined
       </VirtualHost>
       
+   Replace the below code in both database_setup.py and __init__.py
+   
+           engine = create_engine('postgresql://catalog:password@localhost/catalog')
+   
 ##### Database creation:
-First we have to install postgresql.
+
+   First we have to install postgresql.
+
 ###### Install postgresql:
+
       sudo apt-get install postgresql
       sudo su - postgres
       psql
+      
 ###### create user:
 
       CREATE USER catalog WITH PASSWORD 'password';
@@ -262,17 +287,37 @@ Move postgres database to catalog:
 Now change the database connection in both database_setup.py and __init__.py as :
 
       engine = create_engine('postgresql://catalog:password@localhost/catalog')
-Open google api console <a href=https://accounts.google.com/ServiceLogin/signinchooser?service=cloudconsole&passive=1209600&osid=1&continue=https%3A%2F%2Fconsole.developers.google.com%2Fproject%2F_%2Fapiui%2Fapis%2Flibrary%3Fref%3Dhttps%3A%2F%2Fwww.google.co.in%2F&followup=https%3A%2F%2Fconsole.developers.google.com%2Fproject%2F_%2Fapiui%2Fapis%2Flibrary%3Fref%3Dhttps%3A%2F%2Fwww.google.co.in%2F&flowName=GlifWebSignIn&flowEntry=ServiceLogin>click here</a>      
+      
+Open google api console and changethe uri's
+
 ###### redirect URI
+
       http://ip.xip.io\login
       http://ip.xip.io\gconnect
       http://ip.xip.io\callback
       
-##### Finally we must restart our server:
+ #### FINAL STEP:
+ 
+      sudo service apache2 restart
+      
+For error checking :
+
+      sudo nano /var/log/apache2/error.log
+      
+#### Finally we must restart our server:
+
       sudo service apache2 restart
 
+Then go to webbrowser and type your ipaddress finaly we get our project.
 
+#### Reference used:
 
+https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
+https://www.github.com
+
+#### OUTPUT:
+
+CLICK HERE http://13.127.121.235.xip.io/
 
 
 
