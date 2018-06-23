@@ -10,11 +10,7 @@ About Server
 ### Details About The Server:
 Server IP address: 
 ##### UrlSite : http://13.232.90.166.xip.io
-##### open awazon lightsail.com and create an instance that we want for project and static ip address for it.
-### To connect to grader:
-#### Download the file that is having our private key when we created our instance in the lightsail amazon.com
-#### Save the private key provided in your machine and run the command as follows:
-      ssh -i path/to/privatekey -p 2200 grader@ipaddress
+
 #### Grader Key:
       -----BEGIN RSA PRIVATE KEY-----
       MIIEpQIBAAKCAQEAx5RCM7/PsJ0osqLOV3Ra7YHoQT2jSSBgmfquCUJCbPxzS+rw
@@ -43,78 +39,176 @@ Server IP address:
       3fUbX6lBCx5Pj8mYwy5ALy2jlUoL4szVhMkIagC95kWwxcEdBn3PdxLkfncAYsft
       vIJAU7fF2k2BW60KO4A0VA94ySUiXSaTignW42i49SriJ90B+46ySa4=
       -----END RSA PRIVATE KEY-----
+      
 #### Grader password:
-      12345
+
+      unix
+      
 #### To get Update all files:
+
       sudo apt-get update
       sudo apt-get upgrade
+      
 #### To create grader user:
+
       sudo adduser grader
+      
 #### To get another new user:
+
       sudo nano /etc/sudoers
+      
 #### To grant permissions:
+
       grader  ALL=(ALL:ALL) ALL
+      
 #### To create ssh keypair grader:
+
+   Open new terminal and generate a key.
+     
       ssh-keygen
-#### This generate the public key and private key to the .ssh folder
-#### To get change to the new user:
+      
+   Now we are in ubunu user so change to grader user by using given command.
+   
      su - grader
+     
 #### create a new folder .ssh and new authorized_file:
+
       mkdir .ssh
+      
 #### copy the public keys with .pub extension and save the authorized file
+
       sudo nano .ssh/authorized_keys
+      
 #### To get permissions for to user:
+
       chmod 700 .ssh
-#### To prevent other user to write on file:
+      
       chmod 644 .ssh/authorized_keys
+      
 #### Then we can restart our server by using coomand:
+
       service ssh restart
+      
 #### Now we get log in to the grader with our private key generated:
+
       ssh -i .ssh/id_rsa grader@ipaddress 
+      
 #### Now changing the port number of ssh:
+
       sudo nano /etc/ssh/sshd_config
-      change the port number from 22 to 2200
+      
+   Then change the port number from 22 to 2200
+   
 #### Now get login by using this command:
+
       ssh -i .ssh/id_rsa -p 2200 grader@ipaddress
+      
 #### To make changes for Root:
+
       sudo nano /etc/ssh/sshd_config
-      make change PermitRootLogin no
+      
+   Note:Make change PermitRootLogin no
+   
 #### To get security for firewall:
+
       sudo ufw allow 2200/tcp
       sudo ufw allow 80/tcp
       sudo ufw allow 123/udp
       sudo ufw enable
+      
 #### To check status:
+
       sudo ufw status
+      
 #### To get time and day of our configuration:
+
       sudo dpkg-reconfigure tzdata
-#### update to recent versions:
-      sudo apt-get update
-      sudo apt-get upgrade 
-#### To get install for apache2:
-      sudo apt-get install apache2
-#### To get mod_wsgi
-      sudo apt-get install python-setuptools libapache2-mod-wsgi
-#### To get enable:
-      sudo a2enmod wsgi
-#### Create a new directory named FlaskAPP and go into that directory:
-      sudo mkdir FlaskApp
-      cd FlaskApp
+      
+#### Step-2
+
+##### Software Requirements:
+
+AWS account with lightsail service activated.
+
+1)Python Pip
+
+2)Postgres
+
+3)httplib2
+
+4)SQLAlchemy
+
+5)Apache2
+
+6)Flask
+
+7)Virtualenv
+
+8)Requests
+
+9)Oauth2client
+
+##### Installation Process for softwares:
+
+           sudo apt-get install apache2		
+
+           sudo apt-get install python-setuptools libapache2-mod-wsgi
+
+           sudo a2enmod wsgi
+
+           cd /var/www
+
+           sudo mkdir FlaskApp
+
+           sudo apt-get install git
+
+           sudo apt-get install python-pip virtualenv
+
+           sudo virtualenv venv
+
+           sudo pip install Flask
+
+           sudo pip install postgresql oauth2client httplib2 requests psycopg2
+
+           cd /var/www/FlaskApp
+ 
+           sudo rm -r FlaskApp
+           
 #### To get git clone we need to install git:
+
       sudo apt-get install git
+      
 #### Now get address of your itemcatalog project from github:
+
       sudo git clone https://github.com/name/item_catalog.git
+      
 #### To change the file name of our main project file:
+
       sudo mv project.py __init__.py
+      
 #### Now open that file and add json file:
+
       sudo nano __init__.py
+   Add the following coding after importing files.
+   
       PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
       json_url = os.path.join(PROJECT_ROOT, 'client_secrets.json')
-#### Then after save and exit:
+      
+   Make sure change client_secrets.json to json_url.
+   
+   Then after save and exit:
+   
       ctrl+o
       ctrl+x
+      y
+      enter
+      
 #### create wsgi file:
+
       sudo nano mv project.py FlaskApp.wsgi
+      
+  And write the below code in it.
+  
       #!/usr/bin/python
       import sys
       import logging
@@ -122,8 +216,13 @@ Server IP address:
       sys.path.insert(0,"/var/www/FlaskApp/")
       from FlaskApp import app as application
       application.secret_key = 'Add your secret key'
+      
 #### create a virtual host file:
+
       sudo nano /etc/apache2/sites-available/FlaskApp.conf
+   
+   And paste the below code in it.
+   
       <VirtualHost *:80>
  	ServerName mywebsite.com
  	ServerAdmin admin@mywebsite.com
@@ -141,39 +240,29 @@ Server IP address:
  	LogLevel warn
  	CustomLog ${APACHE_LOG_DIR}/access.log combined
       </VirtualHost>
- #### To get install certain softwares we use:
-      pip install sqlalchemy
-      pip install flask
-      pip install oauth2client
-      pip install pyscopg2
-      pip install requests
-#### To get connect to database:
-##### Install postgresql:
+      
+##### Database creation:
+First we have to install postgresql.
+###### Install postgresql:
       sudo apt-get install postgresql
-##### To get login into postgres:
       sudo su - postgres
-##### To get enter into database shell
       psql
-##### create user 
+###### create user:
+
       CREATE USER catalog WITH PASSWORD 'password';
-##### To get Alter:
       ALTER USER catalog CREATEDB;
-##### To get database name with user:
       CREATE DATABASE catalog WITH user catalog;
-##### To get connect to database:
-      \c item_catalog
-##### To get revoke from permissions:
+Move postgres database to catalog:
+
+      \c catalog
       REVOKE ALL ON SCHEMA public FROM public;
-##### To grant such permisions:
       GRANT ALL ON SCHEMA public TO catalog;
-##### To get exist and logout
       \q
       exit
-##### Now change the database connection in both database_setup.py and __init__.py as :
+Now change the database connection in both database_setup.py and __init__.py as :
+
       engine = create_engine('postgresql://catalog:password@localhost/catalog')
-##### Now our appilication is ready.
-#### Setting google oauth2client details:
-##### Login to your developer console and select the project and edit OAuth details as following:
+Open google api console <a href=https://accounts.google.com/ServiceLogin/signinchooser?service=cloudconsole&passive=1209600&osid=1&continue=https%3A%2F%2Fconsole.developers.google.com%2Fproject%2F_%2Fapiui%2Fapis%2Flibrary%3Fref%3Dhttps%3A%2F%2Fwww.google.co.in%2F&followup=https%3A%2F%2Fconsole.developers.google.com%2Fproject%2F_%2Fapiui%2Fapis%2Flibrary%3Fref%3Dhttps%3A%2F%2Fwww.google.co.in%2F&flowName=GlifWebSignIn&flowEntry=ServiceLogin>click here</a>      
 ###### redirect URI
       http://ip.xip.io\login
       http://ip.xip.io\gconnect
